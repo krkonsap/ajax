@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vanasõnad</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+        <script>
+            function showHint(str) {
+                if (str.length == 0) {
+                    document.getElementById("txtHint").innerHTML = "";
+                    return;
+                } else {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("txtHint").innerHTML =this.responseText;
+                        }
+                    };
+                    xmlhttp.open("GET", "vanasonad.php?q=" + str, true);
+                    xmlhttp.send();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Tarkuse pakkuja</h2>
+        <p><b>Kirjuta vormi sisse mõni sõna:</b></p>
+        <form>
+            Sõna: <input type="text" onkeyup="showHint(this.value)">
+        </form>
+        <p>Vanasõnad: <span id="txtHint"></span></p>
+    </body>
+</html>
